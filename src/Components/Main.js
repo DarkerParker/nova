@@ -25,7 +25,7 @@ class Main extends Component{
     render(){
         return (<div>
 
-                    <h1><Link to="/">PhotoWall</Link></h1>
+                    <h1><Link to="/">NOVA</Link></h1>
                     <Route exact path="/" render={() => (
 
                         <div>
