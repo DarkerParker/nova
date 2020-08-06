@@ -18,7 +18,6 @@ class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     album_art = models.ImageField(upload_to="album_art", blank=True, null=True)
     album_name = models.CharField(max_length=200)
-    release_date = models.DateField()
     upload_date = models.DateField(default=datetime.now)
 
     class Meta:
@@ -35,7 +34,6 @@ class Song(models.Model):
     track_art = models.ImageField(upload_to="single_art")
     song_duration_seconds = models.PositiveIntegerField("Track duration in seconds", blank=True, null=True)
     song_name = models.CharField(max_length=100)
-    release_date = models.DateField()
     upload_date = models.DateField(default=datetime.now)
 
     class Meta:

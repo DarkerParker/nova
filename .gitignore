@@ -6,5 +6,6 @@ nova/accounts/migrations
 nova/music/migrations
 nova/music/__pycache__
 nova/unprocessed_audio
+nova/processed_audio
 nova/song_files
 nova/single_art

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Photo from './Photo'
 import Comments from './Comments'
 
+
 class Single extends Component{
 
     render(){
@@ -14,9 +15,13 @@ class Single extends Component{
         if(this.props.loading){
             return(<div className="loader">loading!</div>)
         }else if(post){
-            return( <div className="single-photo">
+            return(<div>
+                <div className="single-photo">
                     <Photo post={posts[postIndex]} key={id} index={postIndex} {...this.props}/>
                     <Comments postId={id} comments={comments} startAddingComment={this.props.startAddingComment}/>
+                    
+                </div> 
+                
                 </div> )
         }else{
             return(<h1>No Post Found.</h1>)

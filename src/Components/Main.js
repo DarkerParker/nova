@@ -2,18 +2,19 @@ import React, {Component} from 'react'
 // import Title from './Title'
 import PhotoWall from './PhotoWall'
 import AddPhoto from './AddPhoto'
+import NavBar from './NavBar'
 import Single from './Single'
-import {Route, Link} from 'react-router-dom'
+import {Route} from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import {darkTheme} from '../theme';
 
 
 class Main extends Component{
 
-    // constructor(){
-    //     super();
-       
-    // }
-
-    state = { loading:true}
+    state = { 
+        loading:true,
+      }
 
     componentDidMount(){
         this.props.startLoadingPosts().then(() =>{
@@ -23,25 +24,28 @@ class Main extends Component{
     }
 
     render(){
-        return (<div>
+        return (<div className="main-div">
+                    <ThemeProvider theme={darkTheme}><CssBaseline />
+                        <NavBar/>
 
-                    <h1><Link to="/">NOVA</Link></h1>
-                    <Route exact path="/" render={() => (
+                        <Route exact path="/" render={() => (
 
-                        <div>
-                            <PhotoWall {...this.props}/>
-                        </div>
+                            <div>
+                                <PhotoWall {...this.props}/>
+                            </div>
 
-                    )}/>           
-                    
-                    <Route path="/AddPhoto" render={({history}) => 
-                        <AddPhoto {...this.props} onHistory={history}/>
-                    }/>
+                        )}/>           
+                        
+                        <Route path="/AddPhoto" render={({history}) => 
+                            <AddPhoto {...this.props} onHistory={history}/>
+                        }/>
 
-                    <Route path="/single/:id" render={(params) => 
-                        <Single loading={this.state.loading} {...this.props} {...params}/>
-                    }/>
+                        <Route path="/single/:id" render={(params) => 
+                            <Single loading={this.state.loading} {...this.props} {...params}/>
+                        }/>
+                        
 
+                    </ThemeProvider>
                 </div>)
     }
 }
