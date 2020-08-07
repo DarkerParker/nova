@@ -16,7 +16,7 @@ import glob
 import uuid
 from music.models import Album, Artist, Song
 
-all_files = glob.glob("../unprocessed_audio/*.mp3")
+all_files = glob.glob("../media/processed_audio/*.mp3")
 
 for song_file in all_files:
     audiofile = eyed3.load(song_file)
@@ -25,7 +25,7 @@ for song_file in all_files:
     title = audiofile.tag.title
     artist = audiofile.tag.artist
     artwork = file.tags['APIC:'].data
-    id = "../single_art/" + str(uuid.uuid1()) 
+    id = "../media/single_art/" + str(uuid.uuid1()) 
     with open(id + ".jpg", 'wb') as img:
        img.write(artwork)
     art_file = id+".jpg"
@@ -53,8 +53,10 @@ for song_file in all_files:
     song_obj = ""
     if song_match:
         song_obj = Song.objects.get(song_name=title, artist=artist_obj)
+        song_obj.song_duration_seconds = file.info.length
+        song_obj.save()
     else:
-        song_obj = Song(song_file=song_file, track_art=art_file, uploader_id=1, song_name=title, artist=artist_obj, album=album_obj)
+        song_obj = Song(song_duration_seconds=file.info.length,song_file=song_file, track_art=art_file, uploader_id=1, song_name=title, artist=artist_obj, album=album_obj)
         song_obj.save()
 
 

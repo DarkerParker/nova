@@ -1,11 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import LazyLoad from 'react-lazy-load';
+import ImageLoader from './ImageLoader';
 
 function Photo(props){
     const post = props.post
     return( <figure className="figure">
-                <Link to={`/single/${post.id}`}><img className="photo" src={post.imageLink} alt={post.description}></img></Link>
+                <Link to={`/single/${post.id}`}>
+                    <LazyLoad
+                        width={'100%'}
+                        debounce={false}
+                    >
+                        <ImageLoader className="photo" src={post.imageLink} alt={post.description}/>
+                        
+                    </LazyLoad>
+                </Link>
                 <figcaption>
                     <p>{post.description}</p>
                 </figcaption>

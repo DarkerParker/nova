@@ -20,15 +20,29 @@ export function startAddingComment(comment, postId){
     }
 }
 
+// export function startLoadingPosts(){
+//     return(dispatch) => {
+//         return database.ref('posts').once('value').then((snapshot) => {
+//             let posts = []
+//             snapshot.forEach((childSnapshot) => {
+//                 posts.push(childSnapshot.val())
+//             })
+//             dispatch(loadPosts(posts))
+//         })
+//     }
+// }
+
 export function startLoadingPosts(){
     return(dispatch) => {
-        return database.ref('posts').once('value').then((snapshot) => {
+        return fetch("http://192.168.0.3:8000/song-artist/").then((response) => {
+            return response.json();
+        }).then(data => {
             let posts = []
-            snapshot.forEach((childSnapshot) => {
-                posts.push(childSnapshot.val())
+            data.forEach((element) => {
+                posts.push({id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art']})
             })
             dispatch(loadPosts(posts))
-        })
+          });
     }
 }
 

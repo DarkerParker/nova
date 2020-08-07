@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import PhotoWall from './PhotoWall'
 import AddPhoto from './AddPhoto'
 import NavBar from './NavBar'
+import AudioSource from './AudioSource'
 import Single from './Single'
 import {Route} from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -28,6 +29,8 @@ class Main extends Component{
                     <ThemeProvider theme={darkTheme}><CssBaseline />
                         <NavBar/>
 
+                        <AudioSource {...this.props}/>
+
                         <Route exact path="/" render={() => (
 
                             <div>
@@ -43,6 +46,8 @@ class Main extends Component{
                         <Route path="/single/:id" render={(params) => 
                             <Single loading={this.state.loading} {...this.props} {...params}/>
                         }/>
+
+                        
                         
 
                     </ThemeProvider>

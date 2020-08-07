@@ -48,10 +48,11 @@ html {
    }
    .figure {
     flex-basis: calc(33.333% - 4rem);
-    border: 1px solid #d3d3d3;
+    /* border: 1px solid #d3d3d3; */
     padding: 2rem;
     flex-grow: 1;
     margin: 0 2rem 2rem 2rem;
+    min-height: 300px;
    }
    .figure .single-photo {
     flex-basis: calc(33.333% - 4rem);
@@ -59,7 +60,7 @@ html {
     flex-shrink: 0;
     margin: 0 2rem 2rem 2rem;
     padding: 2rem;
-    border: 1px solid #d3d3d3;
+    /* border: 1px solid #d3d3d3; */
     background: #fff;
     position: relative;
    }
@@ -90,6 +91,9 @@ html {
     margin-left: -2rem;
     margin-top: -2rem;
     max-width: none;
+    min-width: 100%;
+    /* min-height: 100%; */
+    background-color: black;
    }
    .comment{
     width: 100%
@@ -222,3 +226,27 @@ html {
     .remove-button{
         padding:5px 10px;
     }
+
+    @keyframes fadeInImg{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+
+.img-loading{
+    opacity: 0;
+   width: 100%;
+   height: auto;
+}
+   
+.img-loaded{
+   animation: fadeInImg cubic-bezier(0.23, 1, 0.32, 1) 1;
+   position: relative;
+   opacity: 0;
+   animation-fill-mode: forwards;
+   animation-duration: 2s;
+   animation-delay: 0.1s;
+}

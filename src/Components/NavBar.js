@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import {Link} from 'react-router-dom'
-import SearchBar from './SearchBar'
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -36,7 +35,7 @@ export default function ElevateAppBar(props) {
   return (
     <React.Fragment>
 
-      <ElevationScroll {...props}>
+      <ElevationScroll>
         <AppBar>
           <Toolbar style={{flexDirection:'row',justifyContent:'space-between'}}>
               <Typography  variant="h4" >
