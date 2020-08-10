@@ -7,15 +7,15 @@ import ImageLoader from './ImageLoader';
 function Photo(props){
     const post = props.post
     return( <figure className="figure">
-                <Link to={`/single/${post.id}`}>
+                {/* <Link to={`/single/${post.id}`}> */}
                     <LazyLoad
                         width={'100%'}
                         debounce={false}
                     >
-                        <ImageLoader className="photo" src={post.imageLink} alt={post.description}/>
+                        <ImageLoader onClick={()=>props.selectTrack({id:post.id,title:post.description,url:post.file})} className="photo" src={post.imageLink} alt={post.description}/>
                         
                     </LazyLoad>
-                </Link>
+                {/* </Link> */}
                 <figcaption>
                     <p>{post.description}</p>
                 </figcaption>

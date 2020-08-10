@@ -110,3 +110,15 @@ export function addComment(comment, postId){
         postId
     }
 }
+
+export function loadVolume(){
+    let volume = localStorage.getItem('vol');
+    if(!volume){
+        volume = 0.5;
+        localStorage.setItem('vol', 0.5);
+    }
+    return{
+        type:"LOAD_VOLUME",
+        volume
+    }
+}

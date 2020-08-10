@@ -13,11 +13,25 @@ import {darkTheme} from '../theme';
 
 class Main extends Component{
 
+    constructor(){
+        super();
+        this.selectTrack = this.selectTrack.bind(this)
+    }
+
     state = { 
         loading:true,
-      }
+        selectedTrack: null,
+    }
+
+    selectTrack(track){
+        // console.log(track.id)
+        // console.log(track.url)
+        // console.log(track.title)
+        this.setState({selectedTrack:track.url})
+    }
 
     componentDidMount(){
+        this.props.loadVolume()
         this.props.startLoadingPosts().then(() =>{
             this.setState({loading:false})
         })
@@ -27,15 +41,15 @@ class Main extends Component{
     render(){
         return (<div className="main-div">
                     <ThemeProvider theme={darkTheme}><CssBaseline />
-                        <NavBar/>
+                        <NavBar selectTrack={this.selectTrack} selectedTrack={this.state.selectedTrack} volume={this.props.player.volume}/>
 
-                        <AudioSource {...this.props}/>
+                        
 
                         <Route exact path="/" render={() => (
 
-                            <div>
-                                <PhotoWall {...this.props}/>
-                            </div>
+                            
+                            <PhotoWall selectTrack={this.selectTrack} {...this.props}/>
+                            
 
                         )}/>           
                         
@@ -44,7 +58,7 @@ class Main extends Component{
                         }/>
 
                         <Route path="/single/:id" render={(params) => 
-                            <Single loading={this.state.loading} {...this.props} {...params}/>
+                            <Single selectTrack={this.selectTrack} loading={this.state.loading} {...this.props} {...params}/>
                         }/>
 
                         

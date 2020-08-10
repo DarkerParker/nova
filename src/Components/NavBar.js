@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import AudioSource from './AudioSource'
 import {Link} from 'react-router-dom'
 
 function ElevationScroll(props) {
@@ -41,8 +42,10 @@ export default function ElevateAppBar(props) {
               <Typography  variant="h4" >
                   <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/" >NOVA</Link>
               </Typography>
+
+              <AudioSource selectTrack={props.selectTrack} {...props}/>
               
-            </Toolbar>
+          </Toolbar>
         </AppBar>
       </ElevationScroll>
       <Toolbar />

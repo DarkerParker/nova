@@ -18,6 +18,17 @@ function comments(state={}, action){
 
 }
 
+function player(state={}, action){
+    switch(action.type){
+        case "SET_TRACK":
+            return action.track
+        case "LOAD_VOLUME":
+            return {...state,volume:action.volume}
+        default:
+            return state;
+    }
+}
+
 function posts(state = _posts, action){
 
     switch(action.type){
@@ -32,6 +43,6 @@ function posts(state = _posts, action){
     }
 }
 
-const rootReducer = combineReducers({comments, posts})
+const rootReducer = combineReducers({comments, posts, player})
 
 export default rootReducer
