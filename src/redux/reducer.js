@@ -21,7 +21,9 @@ function comments(state={}, action){
 function player(state={}, action){
     switch(action.type){
         case "SET_TRACK":
-            return action.track
+            return {...state, track:action.track, id:action.id}
+        case "LOAD_TRACK":
+            return {...state, track:action.track, id:action.id}
         case "LOAD_VOLUME":
             return {...state,volume:action.volume}
         default:

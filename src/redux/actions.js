@@ -39,7 +39,7 @@ export function startLoadingPosts(){
         }).then(data => {
             let posts = []
             data.forEach((element) => {
-                posts.push({id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art']})
+                posts.push({id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art'], dominantColor:element['track_art_dominant_color']})
             })
             dispatch(loadPosts(posts))
           });
@@ -120,5 +120,31 @@ export function loadVolume(){
     return{
         type:"LOAD_VOLUME",
         volume
+    }
+}
+
+export function setTrack(track, id){
+    localStorage.setItem('lastTrack', track);
+    localStorage.setItem('lastTrackID', id);
+    return{
+        type:"SET_TRACK",
+        track,
+        id
+    }
+}
+
+export function loadTrack(){
+    let track = localStorage.getItem('lastTrack');
+    let id = localStorage.getItem('lastTrackID');
+    if(!track || !id){
+        track = "";
+        id = "";
+        localStorage.setItem('lastTrack', "");
+        localStorage.setItem('lastTrackID', "");
+    }
+    return{
+        type:"LOAD_TRACK",
+        track,
+        id
     }
 }

@@ -1,37 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from './ImageLoader';
 
 function Photo(props){
     const post = props.post
+    let selected = false;
+    if (props.player.id === props.post.id){
+        selected = true
+    }
     return( <figure className="figure">
                 {/* <Link to={`/single/${post.id}`}> */}
                     <LazyLoad
                         width={'100%'}
                         debounce={false}
                     >
-                        <ImageLoader onClick={()=>props.selectTrack({id:post.id,title:post.description,url:post.file})} className="photo" src={post.imageLink} alt={post.description}/>
+                        <ImageLoader selected={selected} onClick={()=>props.setTrack(post.file, post.id)} className="photo" src={post.imageLink} alt={post.description} color={post.dominantColor}/>
                         
                     </LazyLoad>
                 {/* </Link> */}
-                <figcaption>
+                {/* <figcaption>
                     <p>{post.description}</p>
-                </figcaption>
+                </figcaption> */}
                 <div className="button-container">
-                    <button className="remove-button" onClick={ () => {
+                    {/* <button className="remove-button" onClick={ () => {
                         props.startRemovingPost(props.index, post.id)
                         if (props.history){
                             props.history.push("/")
                         }
-                    }}>Remove</button>
-                    <Link className="button" to={`/single/${post.id}`}>
+                    }}>Remove</button> */}
+                    {/* <Link className="button" to={`/single/${post.id}`}>
                         <div className="comment-count">
                             <div className="speech-bubble"></div>
                             {props.comments[post.id] ? props.comments[post.id].length : 0}
                         </div>
-                    </Link>
+                    </Link> */}
                 </div>
             </figure> )
 }

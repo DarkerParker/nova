@@ -32,6 +32,7 @@ class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True)
     song_file = models.FileField(upload_to="song_files")
     track_art = models.ImageField(upload_to="single_art")
+    track_art_dominant_color = models.CharField(max_length=6, default='ffffff')
     song_duration_seconds = models.PositiveIntegerField("Track duration in seconds", blank=True, null=True)
     song_name = models.CharField(max_length=100)
     upload_date = models.DateField(default=datetime.now)

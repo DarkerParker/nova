@@ -47,22 +47,23 @@ html {
     margin: 0 auto;
    }
    .figure {
-    flex-basis: calc(33.333% - 4rem);
+        /* flex-basis: auto; */
+    /* flex: 1 2 21%; */
+    flex: 1 0 28%;
     /* border: 1px solid #d3d3d3; */
     padding: 2rem;
     flex-grow: 1;
-    margin: 0 2rem 2rem 2rem;
-    min-height: 300px;
+    margin: 0px 3rem 2rem 2rem;
+    line-height: 0;
    }
    .figure .single-photo {
-    flex-basis: calc(33.333% - 4rem);
-    flex-grow: 1;
-    flex-shrink: 0;
-    margin: 0 2rem 2rem 2rem;
-    padding: 2rem;
+        /* flex-basis: auto; */
+    /* flex: 1 2 21%; */
+    flex: 1 0 28%;
     /* border: 1px solid #d3d3d3; */
-    background: #fff;
-    position: relative;
+    padding: 2rem;
+    flex-grow: 1;
+    margin: 0px 3rem 2rem 2rem;
    }
    .single-photo {
     max-width: 1000px;
@@ -87,13 +88,8 @@ html {
     margin: 0;
    }
    .photo {
-    width: calc(100% + 4rem);
-    margin-left: -2rem;
-    margin-top: -2rem;
-    max-width: none;
-    min-width: 100%;
-    /* min-height: 100%; */
-    background-color: black;
+    width: 100%;
+    border-radius: 20px;
    }
    .comment{
     width: 100%
@@ -143,7 +139,7 @@ html {
     
    } */
    .speech-bubble {
-    background: url("https://d30y9cdsu7xlg0.cloudfront.net/png/51904-200.png") center no-repeat;
+    background: url("https://www.pinclipart.com/picdir/big/51-510498_clipart-info-white-outline-speech-bubble-transparent-png.png") center no-repeat;
     background-size: contain;
     padding: 10px;
     margin: 5px;
@@ -151,12 +147,17 @@ html {
     border: none;
     position: relative;
    }
+   a.button{
+       text-decoration: none;
+   }
    .comment-count {
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
    }
    .form {
     width: 360px;
@@ -248,4 +249,157 @@ html {
 
 .player{
     margin: 0px;
+    opacity: 0.5;
 }
+
+.playing-icon{
+    position: absolute;
+    height:30px;
+    width: 30px;
+    right:0;
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+.track-container{
+    position: relative;
+}
+
+.animate-track{
+    transition: all 0.5s;
+}
+
+.animate-track:hover{
+    box-shadow: 16px 16px currentColor;
+    transform: translate(-8px, -8px);
+}
+
+
+#wave {
+    height: 100%;
+    width: 70%;
+    fill: currentColor;
+    stroke-width: 0.5;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: none;
+    animation:fadeIn 3s ease-in;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity:0
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  #Line_1 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 0.15s;
+            animation-delay: 0.15s;
+  }
+  
+  #Line_2 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+  }
+  
+  #Line_3 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 0.45s;
+            animation-delay: 0.45s;
+  }
+  
+  #Line_4 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s;
+  }
+  
+  #Line_5 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 0.75s;
+            animation-delay: 0.75s;
+  }
+  
+  #Line_6 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+  }
+  
+  #Line_7 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 1.05s;
+            animation-delay: 1.05s;
+  }
+  
+  #Line_8 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 1.2s;
+            animation-delay: 1.2s;
+  }
+  
+  #Line_9 {
+    -webkit-animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
+    -webkit-animation-delay: 1.35s;
+            animation-delay: 1.35s;
+  }
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+    50% {
+      -webkit-transform: scaleY(0.7);
+              transform: scaleY(0.7);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+    100% {
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+    50% {
+      -webkit-transform: scaleY(0.7);
+              transform: scaleY(0.7);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+    100% {
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+  }

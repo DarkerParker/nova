@@ -15,8 +15,12 @@ from mutagen import File
 import glob
 import uuid
 from music.models import Album, Artist, Song
+from colorthief import ColorThief
 
 all_files = glob.glob("../media/processed_audio/*.mp3")
+
+def rgb_to_hex(rgb):
+    return '%02x%02x%02x' % rgb
 
 for song_file in all_files:
     audiofile = eyed3.load(song_file)
@@ -29,6 +33,11 @@ for song_file in all_files:
     with open(id + ".jpg", 'wb') as img:
        img.write(artwork)
     art_file = id+".jpg"
+
+    color_thief = ColorThief(art_file)
+    # get the dominant color
+    dominant_color = color_thief.get_color(quality=5)
+    dominant_color_hex = rgb_to_hex(dominant_color)
 
     # Lookup if the artist exists
     artist_match = Artist.objects.filter(stage_name=artist)
@@ -56,7 +65,7 @@ for song_file in all_files:
         song_obj.song_duration_seconds = file.info.length
         song_obj.save()
     else:
-        song_obj = Song(song_duration_seconds=file.info.length,song_file=song_file, track_art=art_file, uploader_id=1, song_name=title, artist=artist_obj, album=album_obj)
+        song_obj = Song(song_duration_seconds=file.info.length,song_file=song_file, track_art=art_file,track_art_dominant_color=dominant_color_hex, uploader_id=1, song_name=title, artist=artist_obj, album=album_obj)
         song_obj.save()
 
 

@@ -10,87 +10,55 @@ class AudioSource extends React.Component {
       super();
       this.player = React.createRef();
       this.volumeChanged = this.volumeChanged.bind(this);
+      this.tryNext = this.tryNext.bind(this);
   }
 
   volumeChanged(){
     localStorage.setItem('vol', this.player.volume)
   }
 
-  componentDidMount() {
-    this.player.addEventListener("timeupdate", e => {
-    //   this.setState({
-    //     currentTime: e.target.currentTime,
-    //     duration: e.target.duration
-    //   });
-    });
-
-        
-    
-
+  tryNext(){
+    const post = this.props.posts.find((post) => post.id === this.props.player.id - 1)
+    if (post){
+        this.props.setTrack(post.file, post.id);
+    }
   }
 
   componentWillUnmount() {
-    this.player.removeEventListener("timeupdate", () => {});
+    // this.player.removeEventListener("timeupdate", () => {});
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.selectedTrack !== prevProps.selectedTrack) {
-      const track = this.props.selectedTrack;
+    if (this.props.player.track !== prevProps.player.track) {
+      const track = this.props.player.track;
       if (track) {
         this.player.src = track;
-        this.player.play();
-        this.player.volume = this.props.volume;
+        if(prevProps.player.track){
+            this.player.play();
+        }
+        this.player.volume = this.props.player.volume;
         // this.setState({ player: "playing", duration: this.player.duration });
       }
     }
-    if (this.state.player !== prevState.player) {
-      if (this.state.player === "paused") {
-        this.player.pause();
-      } else if (this.state.player === "stopped") {
-        this.player.pause();
-        this.player.currentTime = 0;
-        // this.setState({ selectedTrack: null });
-      } else if (
-        this.state.player === "playing" &&
-        prevState.player === "paused"
-      ) {
-        // this.player.play();
-      }
-    }
+    // if (this.state.player !== prevState.player) {
+    //   if (this.state.player === "paused") {
+    //     this.player.pause();
+    //   } else if (this.state.player === "stopped") {
+    //     this.player.pause();
+    //     this.player.currentTime = 0;
+    //     // this.setState({ selectedTrack: null });
+    //   } else if (
+    //     this.state.player === "playing" &&
+    //     prevState.player === "paused"
+    //   ) {
+    //     // this.player.play();
+    //   }
+    // }
   }
 
   render() {
 
-    return (
-      <>
-        {/* <div>
-          {this.state.player === "paused" && (
-            <button onClick={() => this.setState({ player: "playing" })}>
-              Play
-            </button>
-          )}
-          {this.state.player === "playing" && (
-            <button onClick={() => this.setState({ player: "paused" })}>
-              Pause
-            </button>
-          )}
-          {this.state.player === "playing" || this.state.player === "paused" ? (
-            <button onClick={() => this.setState({ player: "stopped" })}>
-              Stop
-            </button>
-          ) : (
-            ""
-          )}
-        </div> */}
-        {/* {this.state.player === "playing" || this.state.player === "paused" ? (
-          <div>
-            {currentTime} / {duration}
-          </div>
-        ) : (
-          ""
-        )} */}
-        <audio onVolumeChange={this.volumeChanged} className="player" ref={ref => (this.player = ref)} controls />
-      </>
+    return (<audio onEnded={this.tryNext} onVolumeChange={this.volumeChanged} className="player" ref={ref => (this.player = ref)} controls />
     );
   }
 }

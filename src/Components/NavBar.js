@@ -42,8 +42,8 @@ export default function ElevateAppBar(props) {
               <Typography  variant="h4" >
                   <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/" >NOVA</Link>
               </Typography>
-
-              <AudioSource selectTrack={props.selectTrack} {...props}/>
+              
+              <AudioSource {...props}/>
               
           </Toolbar>
         </AppBar>
