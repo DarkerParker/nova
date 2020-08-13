@@ -6,7 +6,6 @@ import * as actions from '../redux/actions'
 
 function mapStateToProps(state){
     return{
-        posts: state.posts,
         comments: state.comments,
         player:state.player,
     }

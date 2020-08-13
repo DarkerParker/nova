@@ -287,7 +287,22 @@ html {
     margin-left: auto;
     margin-right: auto;
     pointer-events: none;
-    animation:fadeIn 3s ease-in;
+    animation:fadeIn 2s ease-in;
+  }
+
+  .selected{
+    filter: brightness(0.5);
+    opacity:1;
+    animation:lessBrightness 2s ease-in;
+  }
+
+  @keyframes lessBrightness {
+    0% {
+        filter: brightness(1);
+    }
+    100% {
+        filter: brightness(0.5);
+    }
   }
 
   @keyframes fadeIn {

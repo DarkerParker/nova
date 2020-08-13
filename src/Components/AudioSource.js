@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from 'react-redux'
 
 class AudioSource extends React.Component {
   state = {
@@ -19,8 +20,9 @@ class AudioSource extends React.Component {
 
   tryNext(){
     const post = this.props.posts.find((post) => post.id === this.props.player.id - 1)
+    const index = this.props.posts.findIndex((post) => post.id === this.props.player.id - 1)
     if (post){
-        this.props.setTrack(post.file, post.id);
+        this.props.setTrack(post.file, post.id, index);
     }
   }
 
@@ -63,4 +65,8 @@ class AudioSource extends React.Component {
   }
 }
 
-export default AudioSource
+const mapStateToProps = (state) => ({
+    posts: state.posts,
+  });
+  
+export default connect(mapStateToProps)(AudioSource);

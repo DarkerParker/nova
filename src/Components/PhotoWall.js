@@ -1,25 +1,25 @@
 import React from 'react'
 import Photo from './Photo'
-import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+
 // import {Link} from 'react-router-dom'
 
-function PhotoWall(props){
-    return(<div>
+class PhotoWall extends React.Component {
+    render() { 
+        return(<div>
                 {/* <Link className="addIcon" to="/AddPhoto"></Link> */}
                 {/* <button onClick={props.onNavigate} className="addIcon"></button> */}
                 <div className="photo-grid">
-                    {props.posts
-                    .sort(function(x,y){
+                    {this.props.posts.sort(function(x,y){
                         return y.id - x.id
-                    })
-                    .map((post,index) => <Photo key={post.id} index={index} post={post} {...props}/>)}
+                    }).map((post,index) => <Photo key={post.id} index={index} setTrack={this.props.setTrack}/>)}
                 </div>
             </div>)
+    }
 }
 
-PhotoWall.propTypes = {
-    posts: PropTypes.array.isRequired,
-}
-
-
-export default PhotoWall
+const mapStateToProps = (state) => ({
+    posts: state.posts,
+  });
+  
+export default connect(mapStateToProps)(PhotoWall);

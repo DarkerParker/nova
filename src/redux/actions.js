@@ -39,7 +39,7 @@ export function startLoadingPosts(){
         }).then(data => {
             let posts = []
             data.forEach((element) => {
-                posts.push({id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art'], dominantColor:element['track_art_dominant_color']})
+                posts.push({selected:false, id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art'], dominantColor:element['track_art_dominant_color']})
             })
             dispatch(loadPosts(posts))
           });
@@ -103,7 +103,6 @@ export function addPost(post){
 }
 
 export function addComment(comment, postId){
-    console.log(postId);
     return{
         type:"ADD_COMMENT",
         comment,
@@ -123,14 +122,20 @@ export function loadVolume(){
     }
 }
 
-export function setTrack(track, id){
+export function setTrack(track, id, index){
     localStorage.setItem('lastTrack', track);
     localStorage.setItem('lastTrackID', id);
-    return{
-        type:"SET_TRACK",
-        track,
-        id
-    }
+    return function(dispatch) {
+        dispatch({
+            type:"SET_TRACK",
+            track,
+            id
+        })
+        dispatch({
+          type: 'UPDATE_SELECTED_TRACK',
+          index
+        })
+      }
 }
 
 export function loadTrack(){

@@ -35,6 +35,10 @@ class ImageLoader extends React.Component {
         borderRadius: "20px",
      }
 
+     let selected = `${this.props.selected
+        ? 'selected'
+        : ''}`;
+
      var playing = this.props.selected ? <svg fill="currentColor" id="wave" className="playing" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 38.05">
         <path id="Line_1" data-name="Line 1" d="M0.91,15L0.78,15A1,1,0,0,0,0,16v6a1,1,0,1,0,2,0s0,0,0,0V16a1,1,0,0,0-1-1H0.91Z"/>
         <path id="Line_2" data-name="Line 2" d="M6.91,9L6.78,9A1,1,0,0,0,6,10V28a1,1,0,1,0,2,0s0,0,0,0V10A1,1,0,0,0,7,9H6.91Z"/>
@@ -50,7 +54,7 @@ class ImageLoader extends React.Component {
     return (<div style={{backsplash, position: 'relative', color:`#${this.props.color}`}}><div style={backsplash} className={'animate-track'} ><img 
                 src={this.props.src} 
                 onClick={this.props.onClick} 
-                className={`${className} `} 
+                className={`${className} ${selected}`} 
                 alt={this.props.alt}
                 onLoad={this.onLoad} />
                 {playing}

@@ -36,7 +36,7 @@ class Main extends Component{
                         <Route exact path="/" render={() => (
 
                             
-                            <PhotoWall {...this.props}/>
+                            <PhotoWall setTrack={this.props.setTrack}/>
                             
 
                         )}/>           
