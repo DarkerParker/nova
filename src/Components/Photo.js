@@ -1,5 +1,5 @@
 import React from 'react'
-// import {Link} from 'react-router-dom'
+
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from './ImageLoader';
 import {connect} from 'react-redux'
@@ -10,19 +10,18 @@ class Photo extends React.Component {
     render(){
         const post = this.props.post
 
+        const fullLoaded = this.props.fullLoaded ? true : false
+
         return( <figure className="figure">
-                    {/* <Link to={`/single/${post.id}`}> */}
+                    
                         <LazyLoad
                             width={'100%'}
                             debounce={false}
                         >
-                            <ImageLoader {...this.props} selected={post.selected} onClick={()=>this.props.setTrack(post.file, post.id, this.props.index)} className="photo" src={post.imageLink} alt={post.description} color={post.dominantColor}/>
+                            <ImageLoader id={post.id} fullLoaded={fullLoaded} {...this.props} selected={post.selected} onClick={()=>this.props.setTrack(post.file, post.id, this.props.index)} className="photo" src={post.imageLink} alt={post.description} color={post.dominantColor}/>
                             
                         </LazyLoad>
-                    {/* </Link> */}
-                    {/* <figcaption>
-                        <p>{post.description}</p>
-                    </figcaption> */}
+
                     <div className="button-container">
                         {/* <button className="remove-button" onClick={ () => {
                             props.startRemovingPost(props.index, post.id)

@@ -1,5 +1,6 @@
 import React from "react";
-
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import {Link} from 'react-router-dom'
 const _loaded = {};
 
 class ImageLoader extends React.Component {
@@ -13,7 +14,8 @@ class ImageLoader extends React.Component {
   static defaultProps = {
     className: "",
     loadingClassName: "img-loading",
-    loadedClassName: "img-loaded"
+    loadedClassName: "img-loaded",
+    fullLoaded: "fullLoaded"
   };
 
   //image onLoad handler to update state to loaded
@@ -25,19 +27,27 @@ class ImageLoader extends React.Component {
 
   render() {
   
-    let { className, loadedClassName, loadingClassName } = this.props;
+    let { className, loadedClassName, loadingClassName, fullLoaded } = this.props;
 
-    className = `${className} ${this.state.loaded
-      ? loadedClassName
-      : loadingClassName}`;
+    if(!fullLoaded){
+      className = `${className} ${this.state.loaded
+        ? loadedClassName
+        : loadingClassName}`;
+    }
 
       var backsplash={
         borderRadius: "20px",
      }
 
-     let selected = `${this.props.selected
-        ? 'selected'
-        : ''}`;
+     className = `${className} ${this.props.selected
+      ? 'selected'
+      : 'unselect'}`;
+
+     className = `${className} ${this.props.fullLoaded
+      ? 'fullLoaded'
+      : ''}`;
+
+        
 
      var playing = this.props.selected ? <svg fill="currentColor" id="wave" className="playing" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 38.05">
         <path id="Line_1" data-name="Line 1" d="M0.91,15L0.78,15A1,1,0,0,0,0,16v6a1,1,0,1,0,2,0s0,0,0,0V16a1,1,0,0,0-1-1H0.91Z"/>
@@ -54,7 +64,7 @@ class ImageLoader extends React.Component {
     return (<div style={{backsplash, position: 'relative', color:`#${this.props.color}`}}><div style={backsplash} className={'animate-track'} ><img 
                 src={this.props.src} 
                 onClick={this.props.onClick} 
-                className={`${className} ${selected}`} 
+                className={`${className}`} 
                 alt={this.props.alt}
                 onLoad={this.onLoad} />
                 {playing}

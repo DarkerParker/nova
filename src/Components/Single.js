@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Photo from './Photo'
 import Comments from './Comments'
+import {connect} from 'react-redux'
 
 
 class Single extends Component{
@@ -15,12 +16,14 @@ class Single extends Component{
         if(this.props.loading){
             return(<div className="loader">loading!</div>)
         }else if(post){
-            return(<div>
+            return(<div className='single'>
                 <div className="single-photo">
-                    <Photo post={posts[postIndex]} key={id} index={postIndex} {...this.props}/>
+                    <Photo fullLoaded={true} post={posts[postIndex]} key={id} index={postIndex} {...this.props}/>
                     <Comments postId={id} comments={comments} startAddingComment={this.props.startAddingComment}/>
                     
                 </div> 
+
+                <h1 className="single-title">{post.description}</h1>
                 
                 </div> )
         }else{
@@ -30,5 +33,8 @@ class Single extends Component{
     }
     
 }
-
-export default Single
+const mapStateToProps = (state) => ({
+    posts: state.posts,
+  });
+  
+export default connect(mapStateToProps)(Single);
