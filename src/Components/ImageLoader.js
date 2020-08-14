@@ -1,5 +1,5 @@
 import React from "react";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import {Link} from 'react-router-dom'
 const _loaded = {};
 
@@ -63,13 +63,17 @@ class ImageLoader extends React.Component {
 
     return (<div style={{backsplash, position: 'relative', color:`#${this.props.color}`}}><div style={backsplash} className={'animate-track'} ><img 
                 src={this.props.src} 
-                onClick={this.props.onClick} 
+                 
                 className={`${className}`} 
                 alt={this.props.alt}
                 onLoad={this.onLoad} />
                 {playing}
+                <div className={'controls'} ><PlayCircleFilledIcon className={'playIcon'} onClick={this.props.onClick}/></div>
                 </div></div>);
   }
 }
+
+//I think the controls should grab all the clicks for playing etc.... underlying animations shouldnt be touched
+
 
 export default ImageLoader;
