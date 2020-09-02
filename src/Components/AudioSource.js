@@ -1,6 +1,14 @@
 import React from "react";
 import {connect} from 'react-redux'
 
+// function getTime(time) {
+//   if (!isNaN(time)) {
+//     return (
+//       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+//     );
+//   }
+// }
+
 class AudioSource extends React.Component {
   state = {
     player: "stopped",
@@ -15,7 +23,7 @@ class AudioSource extends React.Component {
   }
 
   volumeChanged(){
-    localStorage.setItem('vol', this.player.volume)
+    localStorage.setItem('vol', this.refs.player.volume)
   }
 
   tryNext(){
@@ -30,15 +38,30 @@ class AudioSource extends React.Component {
     // this.player.removeEventListener("timeupdate", () => {});
   }
 
+  componentDidMount(){
+    this.props.addAudioRef(this.refs.player)
+    // this.player.addEventListener("timeupdate", e => {
+
+    //   var progress = e.target.currentTime / e.target.duration * 100;
+
+    //   if(!progress){
+    //     progress = 0;
+    //   }
+
+    //   console.log(progress);
+    // });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.props.player.track !== prevProps.player.track) {
       const track = this.props.player.track;
       if (track) {
-        this.player.src = track;
+        this.refs.player.src = track;
         if(prevProps.player.track){
-            this.player.play();
+          this.refs.player.play();
         }
-        this.player.volume = this.props.player.volume;
+        // this.props.player.volume = 0.1;
+        this.refs.player.volume = this.props.player.volume;
         // this.setState({ player: "playing", duration: this.player.duration });
       }
     }
@@ -60,13 +83,21 @@ class AudioSource extends React.Component {
 
   render() {
 
-    return (<audio onEnded={this.tryNext} onVolumeChange={this.volumeChanged} className="player" ref={ref => (this.player = ref)} controls />
+    return (<audio 
+              id={"audio-element"} 
+              onEnded={this.tryNext} 
+              onVolumeChange={this.volumeChanged} 
+              className="player" 
+              ref="player" 
+              controls 
+            />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
     posts: state.posts,
+    player:state.player
   });
   
 export default connect(mapStateToProps)(AudioSource);

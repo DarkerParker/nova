@@ -12,7 +12,7 @@ class PhotoWall extends React.Component {
                 <div className="photo-grid">
                     {this.props.posts.sort(function(x,y){
                         return y.id - x.id
-                    }).map((post,index) => <Photo key={post.id} index={index} setTrack={this.props.setTrack}/>)}
+                    }).map((post,index) => <Photo audioRef={this.props.audioRef} key={post.id} index={index} setTrack={this.props.setTrack}/>)}
                 </div>
             </div>)
     }

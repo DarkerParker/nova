@@ -7,7 +7,6 @@ import * as actions from '../redux/actions'
 function mapStateToProps(state){
     return{
         comments: state.comments,
-        player:state.player,
     }
 }
 

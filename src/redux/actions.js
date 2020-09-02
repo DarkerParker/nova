@@ -39,7 +39,7 @@ export function startLoadingPosts(){
         }).then(data => {
             let posts = []
             data.forEach((element) => {
-                posts.push({selected:false, id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art'], dominantColor:element['track_art_dominant_color']})
+                posts.push({selected:false,playing:false,peaks:element['peaks_file'], artist:element['artist']['stage_name'],id:element['id'], file:element['song_file'],description:element['song_name'],imageLink:element['track_art'], dominantColor:element['track_art_dominant_color']})
             })
             dispatch(loadPosts(posts))
           });

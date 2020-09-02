@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 os.environ['DJANGO_SETTINGS_MODULE'] = 'nova.settings'
 
 # Since feeder.py is in Dashboard_app, you need to add the parent directory
@@ -16,8 +17,12 @@ import glob
 import uuid
 from music.models import Album, Artist, Song
 from colorthief import ColorThief
+import subprocess
+
 
 all_files = glob.glob("../media/processed_audio/*.mp3")
+all_files_wav = glob.glob("../media/processed_audio_wav/*.wav")
+index = 0
 
 def rgb_to_hex(rgb):
     return '%02x%02x%02x' % rgb
@@ -29,7 +34,8 @@ for song_file in all_files:
     title = audiofile.tag.title
     artist = audiofile.tag.artist
     artwork = file.tags['APIC:'].data
-    id = "../media/single_art/" + str(uuid.uuid1()) 
+    genId = str(uuid.uuid1()) 
+    id = "../media/single_art/" + genId
     with open(id + ".jpg", 'wb') as img:
        img.write(artwork)
     art_file = id+".jpg"
@@ -38,6 +44,29 @@ for song_file in all_files:
     # get the dominant color
     dominant_color = color_thief.get_color(quality=5)
     dominant_color_hex = rgb_to_hex(dominant_color)
+
+    subprocess.run(["audiowaveform", "-i", song_file, "-o", "../media/peaks/" + genId + ".json", "--pixels-per-second", "2", "--bits", "8"])
+    with open("../media/peaks/" + genId + ".json", "r") as f:
+        file_content = f.read()
+
+    json_content = json.loads(file_content)
+    data = json_content["data"]
+    # number of decimals to use when rounding the peak value
+    digits = 2
+
+    max_val = float(max(data))
+    new_data = []
+    for x in data:
+        new_data.append(round(x / max_val, digits))
+
+    json_content["data"] = new_data
+    file_content = json.dumps(json_content, separators=(',', ':'))
+
+    with open("../media/peaks/" + genId + ".json", "w") as f:
+        f.write(file_content)
+    
+
+    
 
     # Lookup if the artist exists
     artist_match = Artist.objects.filter(stage_name=artist)
@@ -62,10 +91,14 @@ for song_file in all_files:
     song_obj = ""
     if song_match:
         song_obj = Song.objects.get(song_name=title, artist=artist_obj)
-        song_obj.song_duration_seconds = file.info.length
         song_obj.save()
     else:
-        song_obj = Song(song_duration_seconds=file.info.length,song_file=song_file, track_art=art_file,track_art_dominant_color=dominant_color_hex, uploader_id=1, song_name=title, artist=artist_obj, album=album_obj)
+        # save the peaks file
+        song_obj = Song(peaks_file="../media/peaks/" + genId + ".json", song_duration_seconds=file.info.length,song_file=song_file, track_art=art_file,track_art_dominant_color=dominant_color_hex, uploader_id=1, song_name=title, artist=artist_obj, album=album_obj)
         song_obj.save()
 
+    index = index + 1
+
+    
+    
 

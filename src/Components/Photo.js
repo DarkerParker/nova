@@ -3,6 +3,7 @@ import React from 'react'
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from './ImageLoader';
 import {connect} from 'react-redux'
+import Waveform from './Waveform'
 
 class Photo extends React.Component {
 
@@ -10,19 +11,18 @@ class Photo extends React.Component {
     render(){
         const post = this.props.post
 
-        const fullLoaded = this.props.fullLoaded ? true : false
 
         return( <figure className="figure">
                     
                         <LazyLoad
-                            width={'100%'}
+                            // width={'100%'}
                             debounce={false}
                         >
-                            <ImageLoader id={post.id} fullLoaded={fullLoaded} {...this.props} selected={post.selected} onClick={()=>this.props.setTrack(post.file, post.id, this.props.index)} className="photo" src={post.imageLink} alt={post.description} color={post.dominantColor}/>
+                            <ImageLoader post={post} id={post.id} {...this.props} selected={post.selected} onClick={()=>this.props.setTrack(post.file, post.id, this.props.index)} className="photo" src={post.imageLink} alt={post.description} color={post.dominantColor}/>
                             
                         </LazyLoad>
 
-                    <div className="button-container">
+                    {/* <div className="button-container"> */}
                         {/* <button className="remove-button" onClick={ () => {
                             props.startRemovingPost(props.index, post.id)
                             if (props.history){
@@ -35,7 +35,8 @@ class Photo extends React.Component {
                                 {props.comments[post.id] ? props.comments[post.id].length : 0}
                             </div>
                         </Link> */}
-                    </div>
+                    {/* </div> */}
+                    <Waveform audioRef={this.props.audioRef} selected={post.selected} id={post.id} peaks={post.peaks} src={post.file}/>
                 </figure> )
     }
 }

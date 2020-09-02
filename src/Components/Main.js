@@ -12,9 +12,15 @@ import {darkTheme} from '../theme';
 
 class Main extends Component{
 
+    constructor(){
+        super();
+        this.addAudioRef = this.addAudioRef.bind(this)
+    }
+
     state = { 
         loading:true,
         selectedTrack: null,
+        audioRef: null,
     }
 
     componentDidMount(){
@@ -26,17 +32,23 @@ class Main extends Component{
         this.props.startLoadingComments()
     }
 
+    addAudioRef(component){
+        this.setState({
+            audioRef:component
+        })
+    }
+
     render(){
         return (<div className="main-div">
                     <ThemeProvider theme={darkTheme}><CssBaseline />
-                        <NavBar {...this.props}/>
+                        <NavBar {...this.props} addAudioRef={this.addAudioRef}/>
 
                         
 
                         <Route exact path="/" render={() => (
 
                             
-                            <PhotoWall setTrack={this.props.setTrack}/>
+                            <PhotoWall audioRef={this.state.audioRef} setTrack={this.props.setTrack}/>
                             
 
                         )}/>           
@@ -46,7 +58,7 @@ class Main extends Component{
                         }/>
 
                         <Route path="/single/:id" render={(params) => 
-                            <Single loading={this.state.loading} {...this.props} {...params}/>
+                            <Single audioRef={this.state.audioRef} loading={this.state.loading} {...this.props} {...params}/>
                         }/>
 
                         

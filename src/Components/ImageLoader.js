@@ -1,6 +1,10 @@
 import React from "react";
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import QueueMusicIcon from '@material-ui/icons/QueueMusic';
+import ShareIcon from '@material-ui/icons/Share';
 import {Link} from 'react-router-dom'
+
 const _loaded = {};
 
 class ImageLoader extends React.Component {
@@ -15,7 +19,6 @@ class ImageLoader extends React.Component {
     className: "",
     loadingClassName: "img-loading",
     loadedClassName: "img-loaded",
-    fullLoaded: "fullLoaded"
   };
 
   //image onLoad handler to update state to loaded
@@ -27,13 +30,11 @@ class ImageLoader extends React.Component {
 
   render() {
   
-    let { className, loadedClassName, loadingClassName, fullLoaded } = this.props;
+    let { className, loadedClassName, loadingClassName} = this.props;
 
-    if(!fullLoaded){
       className = `${className} ${this.state.loaded
         ? loadedClassName
         : loadingClassName}`;
-    }
 
       var backsplash={
         borderRadius: "20px",
@@ -42,10 +43,6 @@ class ImageLoader extends React.Component {
      className = `${className} ${this.props.selected
       ? 'selected'
       : 'unselect'}`;
-
-     className = `${className} ${this.props.fullLoaded
-      ? 'fullLoaded'
-      : ''}`;
 
         
 
@@ -68,8 +65,16 @@ class ImageLoader extends React.Component {
                 alt={this.props.alt}
                 onLoad={this.onLoad} />
                 {playing}
-                <div className={'controls'} ><PlayCircleFilledIcon className={'playIcon'} onClick={this.props.onClick}/></div>
-                </div></div>);
+                  <div className={'controls'} >
+                    <PlayCircleOutlineIcon className={'play-icon'} onClick={this.props.onClick}/>
+                    <FavoriteBorderIcon className={'like-icon'}/>
+                    <QueueMusicIcon className={'queue-icon'}/>
+                    <ShareIcon className={'share-icon'}/>
+                    <Link className="track-link" to={`/single/${this.props.id}`}></Link>
+                  </div>
+                </div>
+
+                </div>);
   }
 }
 

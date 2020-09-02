@@ -60,7 +60,7 @@ class SongArtistSerializer(serializers.ModelSerializer):
     artist = ArtistSerializer()
     class Meta:
         model = Song
-        fields = ['id','artist', 'song_file', 'track_art', 'track_art_dominant_color', 'song_name', 'song_duration_seconds']
+        fields = ['id','artist', 'song_file','peaks_file', 'track_art', 'track_art_dominant_color', 'song_name', 'song_duration_seconds']
 
 # ViewSets define the view behavior.
 class SongArtistViewSet(viewsets.ModelViewSet):

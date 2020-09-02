@@ -2,22 +2,62 @@
 html {
     font-size: 10px;
     font-family: sans-serif;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
     height:100%;
     overflow:hidden;
    }
+
+   /* width */
+::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    /* button */
+    ::-webkit-scrollbar-button {
+        background: #222; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #333; 
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #666; 
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #000; 
+    }
+    
+    ::-webkit-scrollbar-track-piece {
+        background: #000; 
+    }
+    
+    /* Corner */
+    ::-webkit-scrollbar-corner {
+        background: #999; 
+    }
+    
+    /* Resizer */
+    ::-webkit-resizer {
+        background: #111; 
+    }
+
    body{
        margin:0;
        height:100%;
        overflow:hidden;
        background-color: #131313;
    }
-   html::-webkit-scrollbar {
-    display: none;
-  }
   #root{
     height:100%;
+    position: absolute;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    padding-top: 64px;
   }
    p {
     font-size: 1.6rem;
@@ -68,6 +108,7 @@ html {
    .single{
         max-width: 1000px;
         margin: 0 auto;
+        padding: 20px;
    }
    .single-photo {
     display: flex;
@@ -94,7 +135,8 @@ html {
     border-radius: 20px;
    }
    .comment{
-    width: 100%
+    width: 100%;
+    color:white;
    }
    .comment p {
     border-bottom: 1px solid #d3d3d3;
@@ -210,17 +252,15 @@ html {
 
     .main-div{
         height:100%;
-        margin: 20px;
         overflow:auto;
-        padding-bottom: 100px;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        /* -ms-overflow-style: none; 
+        scrollbar-width: none;  */
     }
 
     /* Hide scrollbar for Chrome, Safari and Opera */
-    .main-div::-webkit-scrollbar {
+    /* .main-div::-webkit-scrollbar {
         display: none;
-    }
+    } */
     .remove-button{
         padding:5px 10px;
     }
@@ -267,6 +307,7 @@ html {
 .single-title{
         text-align: left;
         font-size: 32px;
+        color:white;
 }
 
 .controls{
@@ -278,7 +319,7 @@ html {
      overflow: hidden;
      cursor: pointer;
      transition: all 0.3s linear;
-     background-color: rgba(0, 0, 0, 0.322);
+     background-color: rgba(0, 0, 0, 0.521);
      opacity:0
 }
 
@@ -286,17 +327,69 @@ html {
      opacity:1
 }
 
-.playIcon{
-        fill: rgba(255, 255, 255, 0.726)!important;
+.track-link{
+        position: absolute;
+        height: 100%;
+        width:100%;
+}
+
+.play-icon{
+        fill: white!important;
         position: absolute!important;
         top: 5%!important;
         left: 5%!important;
         width: 20%!important;
         height: 20%!important;
+        z-index: 100;
 }
 
-.playIcon:hover{
-        transition: transform 0.2s linear;
+.play-icon:hover{
+        transition: transform 0.1s ease-in-out;
+        transform: scale(1.1,1.1);
+}
+
+.like-icon{
+        fill: white!important;
+        position: absolute!important;
+        top: 5%!important;
+        right: 5%!important;
+        width: 20%!important;
+        height: 20%!important;
+        z-index: 100;
+}
+
+.like-icon:hover{
+        transition: transform 0.1s ease-in-out;
+        transform: scale(1.1,1.1);
+}
+
+.queue-icon{
+        fill: white!important;
+        position: absolute!important;
+        bottom: 5%!important;
+        right: 5%!important;
+        width: 20%!important;
+        height: 20%!important;
+        z-index: 100;
+}
+
+.queue-icon:hover{
+        transition: transform 0.1s ease-in-out;
+        transform: scale(1.1,1.1);
+}
+
+.share-icon{
+        fill: white!important;
+        position: absolute!important;
+        bottom: 5%!important;
+        left: 5%!important;
+        width: 20%!important;
+        height: 20%!important;
+        z-index: 100;
+}
+
+.share-icon:hover{
+        transition: transform 0.1s ease-in-out;
         transform: scale(1.1,1.1);
 }
 
@@ -359,7 +452,7 @@ html {
 #wave {
     height: 100%;
     width: 70%;
-    fill: currentColor;
+    fill: white;
     stroke-width: 0.5;
     position: absolute;
     left: 0;
@@ -503,3 +596,127 @@ html {
               transform-origin: 50% 50%;
     }
   }
+
+.track-info{
+        
+        display: flex;
+        /* padding:30px; */
+}
+
+.track-img{
+        width: 20%;
+        align-self: baseline;
+        box-shadow: 6px 12px 15px 0px #0000001f;
+}
+
+.track-title{
+        font-size:32px;
+        text-align: left;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding:4px 8px ;
+        border-radius: 5px;
+        align-self: baseline;
+        margin: 0;
+        margin-bottom: 10px;
+}
+
+.track-artist{
+        color:white;
+        font-size: 20px;
+        text-align: left;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding:4px 8px ;
+        border-radius: 5px;
+        align-self: baseline;
+        margin: 0;
+}
+
+.track-title-desc{
+        display:flex;
+        flex-direction: column;
+        align-content: space-between;
+        margin-left: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+
+        .track-info{
+                flex-direction: column;
+                justify-content: space-between;
+        }
+        .track-img{
+                width: 30%;
+                align-self: flex-end;
+        }
+        
+        .track-title{
+                font-size:24px;
+        }
+        
+        .track-artist{
+                font-size: 14px;
+        }
+        
+        .track-title-desc{
+                display:flex;
+                flex-direction: column;
+                align-content: space-between;
+                margin-left: 10px;
+        }
+}
+
+
+wave{
+        overflow: hidden!important;
+}
+
+.waveform{
+        height: 75px;
+        overflow: hidden;
+        animation: fadeInImg cubic-bezier(0.23, 1, 0.32, 1) 1;
+        opacity: 0;
+        animation-fill-mode: forwards;
+        animation-duration: 0.5s;
+        animation-delay: 0.1s;
+        width:100%;
+        position: relative;
+}
+
+.track-container{
+        min-height: 400px;
+        background-image: linear-gradient(127deg,currentColor,black 300%);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        padding:30px;
+        justify-content: space-between;
+}
+
+.wave-container{
+        background-color: rgb(0 0 0 / 20%);
+        padding: 15px 20px;
+        border-radius: 20px;
+}
+
+/* canvas{
+        width:100%;
+} */
+
+.progress{
+        position: absolute;
+        pointer-events: all;
+}
+
+.progressHider{
+        /* width: 0%; */
+        height: 100%;
+        position: absolute;
+        overflow: hidden;
+        display: block;
+        box-sizing: border-box;
+        border-right: 1px solid rgb(0 0 0);
+        pointer-events: none;
+        transition: all 0.2s linear;
+        animation: fadeIn 1s;
+}
